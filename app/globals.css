@@ -1,0 +1,640 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E PALETA DE CORES
+   ========================================================================== */
+:root {
+  --space-bg: #030712;
+  --primary: #ffe81f;
+  --primary-baby: #4cc9f0;
+  --secondary-baby: #ff70a6;
+  --grogu-green: #a7c957;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: rgba(15, 23, 42, 0.65);
+  --border-glow: rgba(76, 201, 240, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-space-grotesk), var(--font-montserrat), sans-serif;
+  background-color: var(--space-bg);
+  color: var(--text-light);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fundo Estrelado Animado */
+#stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, #0f172a 0%, #030712 100%);
+}
+
+.star {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  transition:
+    transform 1s cubic-bezier(0.1, 0.8, 0.3, 1),
+    width 1s,
+    height 1s;
+  animation: blink linear infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Efeito de Salto Hiperespaço */
+.hyperspace .star {
+  animation: none !important;
+  transform: scaleY(30) scaleX(0.5) translateY(-100vh) !important;
+  height: 150px !important;
+  width: 1px !important;
+  opacity: 0.8 !important;
+  transition:
+    transform 1.2s ease-in-out,
+    height 1.2s ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--space-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-baby);
+  border-radius: 4px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-glow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 35px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  text-align: center;
+}
+
+.btn-galaxy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-baby), #3a0ca3);
+  color: #fff;
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.4);
+  font-family: var(--font-space-grotesk), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  gap: 8px;
+}
+
+.btn-galaxy:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(76, 201, 240, 0.8);
+}
+
+/* Botão Flutuante de Música */
+#music-floating-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 999;
+  background: rgba(15, 23, 42, 0.85);
+  border: 2px solid var(--primary-baby);
+  color: #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
+  backdrop-filter: blur(5px);
+  transition: transform 0.2s;
+}
+#music-floating-btn:active {
+  transform: scale(0.9);
+}
+
+/* ==========================================================================
+   1. TELA DE ENTRADA
+   ========================================================================== */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity 1s ease-in-out,
+    transform 1s ease-in-out;
+}
+
+#intro-screen.slide-up {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #0f172a 0%, #030712 70%);
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+  z-index: 1;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.audio-control {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.intro-baby-title {
+  color: var(--primary);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255, 232, 31, 0.6);
+}
+
+.intro-baby-subtitle {
+  color: #fff;
+  font-size: 2.3rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   2. SEÇÃO PRINCIPAL (HEADER DO CONVITE)
+   ========================================================================== */
+.main-header {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.main-header .crawl-subtitle {
+  color: var(--primary-baby);
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.main-header .crawl-episode {
+  color: var(--primary);
+  font-size: 1.6rem;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.main-header h1 {
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 0.95;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+}
+
+.main-header .baby-badge {
+  background: linear-gradient(
+    90deg,
+    rgba(76, 201, 240, 0.2) 0%,
+    rgba(167, 201, 87, 0.2) 100%
+  );
+  border: 1px solid var(--primary-baby);
+  padding: 8px 24px;
+  border-radius: 50px;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* ==========================================================================
+   3. CONTAGEM REGRESSIVA
+   ========================================================================== */
+.countdown-title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.countdown-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 15px 10px;
+  position: relative;
+}
+
+.countdown-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-baby);
+  border-radius: 16px 16px 0 0;
+}
+
+.countdown-number {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   4. LOCAL E INFOS DO EVENTO
+   ========================================================================== */
+.info-row {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-row:last-of-type {
+  border-bottom: none;
+  margin-bottom: 30px;
+}
+
+.info-icon {
+  font-size: 2rem;
+  margin-right: 20px;
+  background: rgba(76, 201, 240, 0.15);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  flex-shrink: 0;
+  color: var(--primary-baby);
+}
+
+.info-text h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+}
+
+.info-text p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.action-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   5. CONFIRMAÇÃO DE PRESENÇA (FORMULÁRIO)
+   ========================================================================== */
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.form-control {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #fff;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-baby);
+  box-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+}
+.form-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* ==========================================================================
+   6. GALERIA TEMÁTICA
+   ========================================================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1e293b;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s;
+}
+.gallery-item:hover {
+  transform: scale(1.04);
+  border-color: var(--primary-baby);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gallery-tag {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
+  padding: 15px 10px 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary-baby);
+}
+
+/* Easter Egg Grogu Animado */
+#easter-egg-grogu {
+  position: fixed;
+  bottom: -100px;
+  left: -150px;
+  width: 120px;
+  z-index: 1001;
+  pointer-events: none;
+  transition: transform 0.1s;
+}
+.grogu-fly-animation {
+  animation: groguFly 4s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+@keyframes groguFly {
+  0% {
+    left: -150px;
+    bottom: 10%;
+    transform: rotate(15deg);
+  }
+  50% {
+    bottom: 60%;
+    transform: rotate(-10deg) scale(1.2);
+  }
+  100% {
+    left: 110vw;
+    bottom: 30%;
+    transform: rotate(20deg);
+  }
+}
+
+/* ==========================================================================
+   7. PRESENTES E PIX
+   ========================================================================== */
+.gifts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: left;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.gift-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+}
+.gift-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+.gift-box h4 {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.gift-box p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.pix-container {
+  background: rgba(76, 201, 240, 0.05);
+  border: 1px solid rgba(76, 201, 240, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+footer p span {
+  color: var(--primary);
+}
+
+/* Animações de scroll */
+.init-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.visible-card {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 768px) {
+  .main-header h1 {
+    font-size: 3.2rem;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gifts-container {
+    grid-template-columns: 1fr;
+  }
+  .countdown-grid {
+    gap: 8px;
+  }
+  .countdown-number {
+    font-size: 1.6rem;
+  }
+  .countdown-label {
+    font-size: 0.65rem;
+  }
+  .glass-card {
+    padding: 25px 20px;
+  }
+}
+@media (max-width: 480px) {
+  .form-row-grid {
+    grid-template-columns: 1fr;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .main-header h1 {
+    font-size: 2.8rem;
+  }
+}
